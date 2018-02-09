@@ -10,6 +10,10 @@ TagManager:
   - TerraRoca
   - Enemy
   - Pedra
+  - TerraAigua
+  - PistolaAigua
+  - GranRoca
+  - GranPedra
   layers:
   - Default
   - TransparentFX

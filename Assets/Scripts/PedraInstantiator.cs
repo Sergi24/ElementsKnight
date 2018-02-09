@@ -10,17 +10,19 @@ public class PedraInstantiator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        InvokeRepeating("InstantiatePedra", 1f, 1f);
+        InvokeRepeating("InstantiatePedra", 2f, 2f);
 	}
 	
 	void InstantiatePedra()
     {
         if (Random.Range(0, probabilitat) == 0)
         {
+            Vector3 position = new Vector3(transform.position.x + Random.Range(-2f, 2f), transform.position.y, transform.position.z + Random.Range(-2f, 2f));
+            
             if (Random.Range(0, 4) == 0) { 
-                Instantiate(granPedra, transform.position, Quaternion.identity);
+                Instantiate(granPedra, position, Quaternion.identity);
             }
-            else Instantiate(pedra, transform.position, Quaternion.identity);
+            else Instantiate(pedra, position, Quaternion.identity);
         }
     }
 }

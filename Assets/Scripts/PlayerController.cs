@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Terra" || collision.gameObject.tag == "TerraRoca")
-        inTheGround = true;
+        if (collision.gameObject.tag == "Terra" || collision.gameObject.tag == "TerraRoca") inTheGround = true;
+        if (collision.gameObject.tag == "Roca" || collision.gameObject.tag == "GranRoca") inTheGround = true; 
     }
 }

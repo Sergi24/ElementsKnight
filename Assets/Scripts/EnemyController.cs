@@ -20,16 +20,40 @@ public class EnemyController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        GameObject[] pedres = GameObject.FindGameObjectsWithTag("Pedra");
-        if (pedres.Length != 0) agent.destination = pedres[0].transform.position;
+        GameObject[] pedres = GameObject.FindGameObjectsWithTag("GranPedra");
+        if (pedres.Length > 0)
+        {
+            agent.destination = pedres[0].transform.position;
 
-        foreach (GameObject pedra in pedres) {
-            if ((pedra.transform.position-transform.position).magnitude < rangAtac)
+            foreach (GameObject pedra in pedres)
             {
-                if (!pedra.GetComponent<PedraMove>().getSelected())
+                if ((pedra.transform.position - transform.position).magnitude < rangAtac)
                 {
-                    pedra.GetComponent<PedraMove>().Selected();
-                    pedra.GetComponent<PedraMove>().Attack(GameObject.FindGameObjectWithTag("Player"));
+                    if (!pedra.GetComponent<PedraMove>().getSelected())
+                    {
+                        pedra.GetComponent<PedraMove>().Selected();
+                        pedra.GetComponent<PedraMove>().Attack(GameObject.FindGameObjectWithTag("Player"));
+                    }
+                }
+            }
+        }
+        else
+        {
+            pedres = GameObject.FindGameObjectsWithTag("Pedra");
+            if (pedres.Length > 0)
+            {
+                agent.destination = pedres[0].transform.position;
+
+                foreach (GameObject pedra in pedres)
+                {
+                    if ((pedra.transform.position - transform.position).magnitude < rangAtac)
+                    {
+                        if (!pedra.GetComponent<PedraMove>().getSelected())
+                        {
+                            pedra.GetComponent<PedraMove>().Selected();
+                            pedra.GetComponent<PedraMove>().Attack(GameObject.FindGameObjectWithTag("Player"));
+                        }
+                    }
                 }
             }
         }
@@ -37,7 +61,7 @@ public class EnemyController : MonoBehaviour {
 
     public void Defend()
     {
-        if (Random.Range(0, 1) == 0)
+        if (Random.Range(0, 3) == 0)
         {
             Instantiate(roca, transform.position + (transform.forward*4) - (transform.up*3), Quaternion.identity);
         }

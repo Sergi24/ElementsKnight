@@ -156,13 +156,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1972795756549148}
-  m_LocalRotation: {x: 0.31574804, y: -0, z: -0, w: 0.9488431}
-  m_LocalPosition: {x: 0.13399999, y: 4.9, z: -3.23}
+  m_LocalRotation: {x: 0.34459162, y: -0, z: -0, w: 0.9387527}
+  m_LocalPosition: {x: 0, y: 6.94, z: -4.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4167279578677592}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 36.812, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40.314003, y: 0, z: 0}
 --- !u!4 &4658540352463328
 Transform:
   m_ObjectHideFlags: 1
@@ -448,6 +448,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roca: {fileID: 1954707589457468, guid: b0e2d29eb846e49408147b218e58eecd, type: 2}
   granRoca: {fileID: 1384042740845014, guid: 204e18d8f49d92546b929df3afddc33f, type: 2}
+  pistolaAigua: {fileID: 1037915686733234, guid: 755c19e0d0b7a704082c9c8a6dbceab7,
+    type: 2}
 --- !u!124 &124819864089892510
 Behaviour:
   m_ObjectHideFlags: 1
