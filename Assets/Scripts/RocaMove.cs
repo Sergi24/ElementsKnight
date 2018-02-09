@@ -5,6 +5,7 @@ using UnityEngine;
 public class RocaMove : MonoBehaviour {
     private float limitDalt, limitDreta;
     private bool destrossat;
+    private AudioSource asource;
 
     public float duracio;
     public int resistencia;
@@ -15,6 +16,7 @@ public class RocaMove : MonoBehaviour {
         destrossat = false;
         limitDalt = transform.position.y + 4;
         limitDreta = transform.position.x + 4;
+        asource = gameObject.GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -37,6 +39,7 @@ public class RocaMove : MonoBehaviour {
             if (resistencia <= 0)
             {
                 Destroy(gameObject, 2f);
+                asource.Play();
                 destrossat = true;
             }
         }

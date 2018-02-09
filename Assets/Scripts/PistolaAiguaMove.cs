@@ -31,7 +31,7 @@ public class PistolaAiguaMove : GeneralFunctions {
 
         transform.Rotate(90, 0, 0);
 
-        indexRotacio += 5f;
+        indexRotacio += 8f;
         transform.Rotate(0, indexRotacio, 0);
     }
 
