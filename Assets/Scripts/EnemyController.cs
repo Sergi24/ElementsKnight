@@ -16,54 +16,43 @@ public class EnemyController : MonoBehaviour {
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
-
-    // Update is called once per frame
-    void Update()
+    private void buscarPedra(GameObject[] pedres)
     {
-        GameObject[] pedres = GameObject.FindGameObjectsWithTag("GranPedra");
-        if (pedres.Length > 0)
+        foreach (GameObject pedra in pedres)
         {
-            agent.destination = pedres[0].transform.position;
-
-            foreach (GameObject pedra in pedres)
+            if (!pedra.GetComponent<PedraMove>().getSelected())
             {
-                if ((pedra.transform.position - transform.position).magnitude < rangAtac)
-                {
-                    if (!pedra.GetComponent<PedraMove>().getSelected())
-                    {
-                        pedra.GetComponent<PedraMove>().Selected();
-                        pedra.GetComponent<PedraMove>().Attack(GameObject.FindGameObjectWithTag("Player"));
-                    }
-                }
+                agent.destination = pedra.transform.position;
             }
-        }
-        else
-        {
-            pedres = GameObject.FindGameObjectsWithTag("Pedra");
-            if (pedres.Length > 0)
+            if ((pedra.transform.position - transform.position).magnitude < rangAtac)
             {
-                agent.destination = pedres[0].transform.position;
-
-                foreach (GameObject pedra in pedres)
+                if (!pedra.GetComponent<PedraMove>().getSelected())
                 {
-                    if ((pedra.transform.position - transform.position).magnitude < rangAtac)
-                    {
-                        if (!pedra.GetComponent<PedraMove>().getSelected())
-                        {
-                            pedra.GetComponent<PedraMove>().Selected();
-                            pedra.GetComponent<PedraMove>().Attack(GameObject.FindGameObjectWithTag("Player"));
-                        }
-                    }
+                    pedra.GetComponent<PedraMove>().Select();
+                    pedra.GetComponent<PedraMove>().Attack(GameObject.FindGameObjectWithTag("Player"));
                 }
             }
         }
     }
 
-    public void Defend()
+    // Update is called once per frame
+    void Update()
     {
+        GameObject[] pedres = GameObject.FindGameObjectsWithTag("GranPedra");
+        buscarPedra(pedres);
+
+        pedres = GameObject.FindGameObjectsWithTag("Pedra");
+        buscarPedra(pedres);
+    }
+
+    public void Defend(GameObject atacant)
+    {
+        Vector3 posAtacant = atacant.transform.position;
         if (Random.Range(0, 3) == 0)
         {
-            Instantiate(roca, transform.position + (transform.forward*4) - (transform.up*3), Quaternion.identity);
+            Vector3 direccio = posAtacant - transform.position;
+            //   Instantiate(roca, transform.position + (transform.forward*4) - (transform.up*3), Quaternion.identity);
+            Instantiate(roca, transform.position + (direccio * 0.2f) - (transform.up * 3), Quaternion.identity);
         }
     }
 }

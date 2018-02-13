@@ -7,49 +7,76 @@ public class PistolaAiguaMove : GeneralFunctions {
     public int rotationSpeed;
 
     private float indexRotacio;
+    private bool teObjectiu;
+    private GameObject fontAigua;
 
   //  private bool attacking;
     private GameObject destination;
 
 	// Use this for initialization
 	void Start () {
-        destination = GameObject.FindGameObjectWithTag("Enemy");
         indexRotacio = 0;
-	}
+        teObjectiu = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
         transform.Rotate(0, -(indexRotacio), 0);
         transform.Rotate(-90, 0, 0);
 
-        Vector3 puntoDeChoque;
-        puntoDeChoque = new Vector3(destination.transform.position.x, destination.transform.position.y + 1, destination.transform.position.z);
-        transform.rotation = Quaternion.Slerp(transform.rotation,
-        Quaternion.LookRotation(puntoDeChoque - transform.position), rotationSpeed * Time.deltaTime);
+        if (destination != null)
+        {
+            teObjectiu = true;
+            Vector3 puntoDeChoque;
+            puntoDeChoque = new Vector3(destination.transform.position.x, destination.transform.position.y, destination.transform.position.z);
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+            Quaternion.LookRotation(puntoDeChoque - transform.position), rotationSpeed * Time.deltaTime);
 
-        transform.localScale += new Vector3(0.005f, 0.01f, 0.005f);
+            transform.localScale += new Vector3(0.005f, 0.01f, 0.005f);
 
-        transform.Rotate(90, 0, 0);
+            transform.Rotate(90, 0, 0);
+        }
+        else if (teObjectiu) Destruir();
 
         indexRotacio += 8f;
         transform.Rotate(0, indexRotacio, 0);
     }
 
-    public void Attack(GameObject gameObject)
+    public void Attack(GameObject destination)
     {
-        destination = gameObject;
-        if (gameObject.tag == "Enemy")
+        this.destination = destination;
+        if (destination.tag == "Enemy")
         {
-            gameObject.GetComponent<EnemyController>().Defend();
+            destination.GetComponent<EnemyController>().Defend(gameObject);
         }
-   //     attacking = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void Destruir()
     {
-        if (!esTerra(collision.gameObject) && collision.gameObject.tag != "PistolaAigua")
+   //     gameObject.GetComponent<Renderer>().enabled = false;
+     //   gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        EllipsoidParticleEmitter[] steams = fontAigua.GetComponentsInChildren<EllipsoidParticleEmitter>();
+        foreach (EllipsoidParticleEmitter steam in steams)
         {
-          Destroy(gameObject);
+            steam.emit = false;
+        }
+        Destroy(fontAigua, 2f);
+        Destroy(gameObject);
+    }
+
+    public void SetFontAigua(GameObject fontAigua)
+    {
+        this.fontAigua = fontAigua;
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        string tag = collider.gameObject.tag;
+        if (!esTerra(tag) && tag != "PistolaAigua" && tag != "Player")
+        {
+            if (tag == "Pedra" || tag == "GranPedra") collider.gameObject.GetComponent<PedraMove>().Destrossar(1);
+            else if (esRoca(tag)) collider.gameObject.GetComponent<RocaMove>().Destrossar(1);
+            Destruir();
         }
     }
 }

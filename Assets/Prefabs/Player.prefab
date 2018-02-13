@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23666700706279628}
   m_Layer: 0
   m_Name: MaEsquerra
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23434399210127932}
   m_Layer: 0
   m_Name: MaDreta
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 23252398549322988}
   m_Layer: 0
   m_Name: Cos
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,11 +74,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4658540352463328}
   - component: {fileID: 33117482485819794}
-  - component: {fileID: 135996652780639768}
   - component: {fileID: 23202760594348240}
+  - component: {fileID: 135189748074950972}
   m_Layer: 0
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1630995565261474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.64, y: -0.039, z: -5.707}
+  m_LocalPosition: {x: 4.64, y: 0, z: 33.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4930945786725682}
@@ -169,8 +169,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1571120549448448}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.018000007, y: 0.328, z: -0.035000324}
+  m_LocalRotation: {x: 0.99991214, y: -0, z: -0, w: -0.013259532}
+  m_LocalPosition: {x: 0.04, y: 0.273, z: -0.022}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4167279578677592}
@@ -252,7 +252,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bada246473579274386c1c5e52dcf686, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,12 +281,12 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bada246473579274386c1c5e52dcf686, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -409,14 +409,14 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1630995565261474}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 5
+  m_Mass: 100
+  m_Drag: 1
+  m_AngularDrag: 4
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!81 &81083772136080420
 AudioListener:
   m_ObjectHideFlags: 1
@@ -450,6 +450,8 @@ MonoBehaviour:
   granRoca: {fileID: 1384042740845014, guid: 204e18d8f49d92546b929df3afddc33f, type: 2}
   pistolaAigua: {fileID: 1037915686733234, guid: 755c19e0d0b7a704082c9c8a6dbceab7,
     type: 2}
+  fontAigua: {fileID: 1594183765576530, guid: e1f8724b7219fe442ba0c499558f4657, type: 2}
+  thunder: {fileID: 1222921989037244, guid: 86de82e5ed07a0146a8658043b30bfb1, type: 2}
 --- !u!124 &124819864089892510
 Behaviour:
   m_ObjectHideFlags: 1
@@ -457,7 +459,7 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1972795756549148}
   m_Enabled: 1
---- !u!135 &135996652780639768
+--- !u!135 &135189748074950972
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

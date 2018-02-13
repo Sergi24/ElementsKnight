@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class GeneralFunctions : MonoBehaviour {
 
-	protected bool esTerra(GameObject gameObject)
+	protected bool esTerra(string tag)
     {
-        if (gameObject.tag == "TerraRoca" || gameObject.tag == "ParetRoca" || gameObject.tag == "Terra" || gameObject.tag == "TerraAigua") return true;
+        if (tag == "TerraRoca" || tag == "ParetRoca" || tag == "Terra" || tag == "TerraAigua") return true;
         else return false;
     }
 
-    protected bool esPedra(GameObject gameObject)
+    protected bool esPedra(string tag)
     {
-        if (gameObject.tag == "Pedra" || gameObject.tag == "GranPedra") return true;
+        if (tag == "Pedra" || tag == "GranPedra") return true;
         else return false;
     }
 
-    protected bool esRoca(GameObject gameObject)
+    protected bool esRoca(string tag)
     {
-        if (gameObject.tag == "Roca" || gameObject.tag == "GranRoca") return true;
+        if (tag == "Roca" || tag == "GranRoca") return true;
         else return false;
     }
 }

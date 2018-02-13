@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
         transform.Translate(0, 0, z);
         if (Input.GetKeyDown(KeyCode.Space) && inTheGround)
         {
-            rb.AddForce(Vector3.up * 500f);
+            rb.AddForce(Vector3.up * 1800f, ForceMode.Impulse);
             inTheGround = false;
         }
     }

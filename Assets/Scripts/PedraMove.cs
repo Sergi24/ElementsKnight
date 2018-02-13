@@ -9,16 +9,19 @@ public class PedraMove : GeneralFunctions {
     private Color initialColor;
     private Rigidbody rb;
     private float disminucioRoca;
+    private AudioSource asource;
 
     public int moveSpeed, rotationSpeed;
     public Color selectedColor;
     public int resistencia;
+    public GameObject pedraExplosion;
 
     // Use this for initialization
     void Start () {
         attacking = false;
         selected = false;
         initialColor = gameObject.GetComponentInChildren<Renderer>().material.color;
+        asource = gameObject.GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         disminucioRoca = transform.localScale.x / 4;
     }
@@ -36,6 +39,10 @@ public class PedraMove : GeneralFunctions {
             //Movimiento en dirección del target 
             transform.position += transform.forward * moveSpeed * Time.deltaTime;
         }
+        else
+        {
+            rb.WakeUp();
+        }
 	}
 
     public bool getSelected()
@@ -48,7 +55,7 @@ public class PedraMove : GeneralFunctions {
         return attacking;
     }
 
-    public void Selected()
+    public void Select()
     {
         selected = true;
         gameObject.GetComponentInChildren<Renderer>().material.color = selectedColor;
@@ -58,11 +65,13 @@ public class PedraMove : GeneralFunctions {
     {
         if (selected)
         {
+            asource.Play();
+
             this.gameObject.GetComponentInChildren<Renderer>().material.color = initialColor;
             destination = gameObject;
             if (gameObject.tag == "Enemy")
             {
-                gameObject.GetComponent<EnemyController>().Defend();
+                gameObject.GetComponent<EnemyController>().Defend(gameObject);
             }
             rb.useGravity = false;
             attacking = true;
@@ -72,6 +81,7 @@ public class PedraMove : GeneralFunctions {
     public void Destrossar(int dany)
     {
         resistencia -= dany;
+        Instantiate(pedraExplosion, transform.position, Quaternion.identity);
         if (resistencia <= 0)
         {
             Destroy(gameObject);
@@ -85,14 +95,15 @@ public class PedraMove : GeneralFunctions {
     {
         if (attacking)
         {
-            if (esRoca(collision.gameObject))
+            string tag = collision.gameObject.tag;
+            if (esRoca(tag))
             {
-                if (collision.gameObject.tag == "Roca") Destrossar(1);
+                if (tag == "Roca") Destrossar(1);
                 else Destrossar(3);
             }
-            else if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "Enemy" && !esTerra(collision.gameObject) && !esPedra(collision.gameObject)) Destrossar(1);
-            else if (collision.gameObject.tag == "Player" && destination.tag == "Player") Destrossar(1);
-            else if (collision.gameObject.tag == "Enemy" && destination.tag == "Enemy") Destrossar(1);
+            else if (tag != "Player" && tag != "Enemy" && !esTerra(tag) && !esPedra(tag)) Destrossar(1);
+            else if (tag == "Player" && destination.tag == "Player") Destrossar(1);
+            else if (tag == "Enemy" && destination.tag == "Enemy") Destrossar(1);
         }
     }
 
@@ -100,8 +111,14 @@ public class PedraMove : GeneralFunctions {
     {
         if (attacking)
         {
-            if (collision.gameObject.tag == "Player" && destination.tag == "Player") Destroy(gameObject);
-            else if (collision.gameObject.tag == "Enemy" && destination.tag == "Enemy") Destroy(gameObject);
+            if (tag == "Player" && destination.tag == "Player") Destroy(gameObject);
+            else if (tag == "Enemy" && destination.tag == "Enemy") Destroy(gameObject);
         }
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag == "Thunder") Destrossar(1);
+        Destrossar(1);
     }
 }
