@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocaMove : MonoBehaviour {
+public class RocaMove : AVida, IResistencia
+{
     private float limitDalt, limitDreta, limitEsquerra;
     private bool destrossat;
     private AudioSource asource;
 
     public float duracio;
-    public int resistencia;
 
 	// Use this for initialization
 	void Start () {
@@ -36,8 +36,8 @@ public class RocaMove : MonoBehaviour {
     {
         if (!destrossat)
         {
-            resistencia -= dany;
-            if (resistencia <= 0)
+            vida -= dany;
+            if (vida <= 0)
             {
                 GameObject.Find("Player").GetComponent<Rigidbody>().WakeUp();
                 Destroy(gameObject, 2f);

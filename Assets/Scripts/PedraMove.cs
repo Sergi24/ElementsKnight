@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PedraMove : GeneralFunctions {
+public class PedraMove : AVida, IResistencia {
     private GameObject destination;
     private bool attacking;
     private bool selected;
@@ -13,7 +13,6 @@ public class PedraMove : GeneralFunctions {
 
     public int moveSpeed, rotationSpeed;
     public Color selectedColor;
-    public int resistencia;
     public GameObject pedraExplosion;
 
     // Use this for initialization
@@ -80,9 +79,9 @@ public class PedraMove : GeneralFunctions {
 
     public void Destrossar(int dany)
     {
-        resistencia -= dany;
+        vida -= dany;
         Instantiate(pedraExplosion, transform.position, Quaternion.identity);
-        if (resistencia <= 0)
+        if (vida <= 0)
         {
             Destroy(gameObject);
         }else

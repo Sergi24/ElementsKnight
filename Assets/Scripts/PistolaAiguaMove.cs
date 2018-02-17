@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PistolaAiguaMove : GeneralFunctions {
+public class PistolaAiguaMove : AVida, IResistencia
+{
 
     public int rotationSpeed;
 
@@ -38,8 +39,8 @@ public class PistolaAiguaMove : GeneralFunctions {
 
             transform.Rotate(90, 0, 0);
         }
-        else if (teObjectiu) Destruir();
-        else if (contador > 10) Destruir();
+        else if (teObjectiu) Destrossar(1);
+        else if (contador > 10) Destrossar(1);
         else contador++;
 
         indexRotacio += 8f;
@@ -55,7 +56,7 @@ public class PistolaAiguaMove : GeneralFunctions {
         }
     }
 
-    private void Destruir()
+    public void Destrossar(int dany)
     {
    //     gameObject.GetComponent<Renderer>().enabled = false;
      //   gameObject.GetComponent<CapsuleCollider>().enabled = false;
@@ -78,9 +79,8 @@ public class PistolaAiguaMove : GeneralFunctions {
         string tag = collider.gameObject.tag;
         if (!esTerra(tag) && tag != "PistolaAigua" && tag != "Player" && tag != "AquaBall")
         {
-            if (tag == "Pedra" || tag == "GranPedra") collider.gameObject.GetComponent<PedraMove>().Destrossar(1);
-            else if (esRoca(tag)) collider.gameObject.GetComponent<RocaMove>().Destrossar(1);
-            Destruir();
+            if (tag == "Pedra" || tag == "GranPedra" || esRoca(tag)) collider.gameObject.GetComponent<IResistencia>().Destrossar(1);
+            Destrossar(1);
         }
     }
 }

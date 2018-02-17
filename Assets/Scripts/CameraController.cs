@@ -103,6 +103,10 @@ public class CameraController : MonoBehaviour
         //     GameObject fontAiguaNova = Instantiate(fontAigua, new Vector3(objectHit.x, objectHit.y, hit.transform.position.z), Quaternion.identity);
         //      pistolaAiguaNova.GetComponent<PistolaAiguaMove>().SetFontAigua(fontAiguaNova);
         }
+        else if (hit.tag == "AquaBall" && Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            hit.gameObject.GetComponent<AquaBallMove>().FlyBegin(GameObject.Find("Player"));
+        }
         else if ((hit.tag == "Pedra" || hit.tag == "GranPedra") && Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (hit.gameObject.GetComponent<PedraMove>().getAttacking())
@@ -115,16 +119,17 @@ public class CameraController : MonoBehaviour
                     GameObject fontAiguaNova = Instantiate(fontAigua, new Vector3(objectHit.x, terresAigua[0].transform.position.y, terresAigua[0].transform.position.z), Quaternion.identity);
                     pistolaAiguaNova.GetComponent<PistolaAiguaMove>().SetFontAigua(fontAiguaNova);
                 }
-                //     else
-                //     {
-                Instantiate(thunder, new Vector3(objectHit.x, 0, objectHit.z), Quaternion.Euler(new Vector3(-90, 0, 0)));
-                //     }
             }
         }
     }
 
     void funcionsElectricitat(Transform hit, Vector3 objectHit)
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1)) Instantiate(tormentaElectrica, new Vector3(objectHit.x, 0, objectHit.z), Quaternion.identity);
+        //  if (Input.GetKeyDown(KeyCode.Mouse1)) Instantiate(tormentaElectrica, new Vector3(objectHit.x, 0, objectHit.z), Quaternion.identity);
+
+        //     else
+        //     {
+       // Instantiate(thunder, new Vector3(objectHit.x, 0, objectHit.z), Quaternion.Euler(new Vector3(-90, 0, 0)));
+        //     }
     }
 }

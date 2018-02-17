@@ -71,7 +71,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e55a779cd74b748949a643d2f4de04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vida: 1
   rotationSpeed: 10
 --- !u!136 &136601568074000920
 CapsuleCollider:

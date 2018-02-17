@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e209eabe00ce449a5a184f09a44492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vida: 3
   moveSpeed: 4
   rotationSpeed: 10
   selectedColor: {r: 0.38235295, g: 0.24523327, b: 0, a: 0}
