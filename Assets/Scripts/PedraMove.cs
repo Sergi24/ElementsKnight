@@ -119,6 +119,5 @@ public class PedraMove : GeneralFunctions {
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Thunder") Destrossar(1);
-        Destrossar(1);
     }
 }

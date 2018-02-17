@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
     private new Camera camera;
 
-    public GameObject roca, granRoca, pistolaAigua, fontAigua, thunder;
+    public GameObject roca, granRoca, pistolaAigua, fontAigua, thunder, tormentaElectrica, aquaBall;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         camera = GetComponent<Camera>();
-	}
+    }
 
     // Update is called once per frame
     private void Update()
@@ -26,6 +28,7 @@ public class CameraController : MonoBehaviour {
 
             funcionsAigua(hit.transform, hit.point);
 
+            funcionsElectricitat(hit.transform, hit.point);
         }
     }
 
@@ -33,7 +36,7 @@ public class CameraController : MonoBehaviour {
     {
         // Do something with the object that was hit by the raycast.
         if (hit.tag == "TerraRoca")
-        { 
+        {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Instantiate(roca, new Vector3(objectHit.x, objectHit.y - 2, objectHit.z), Quaternion.identity);
@@ -48,7 +51,8 @@ public class CameraController : MonoBehaviour {
             int orientacioParet;
             if (hit.gameObject.transform.rotation.eulerAngles.z == 270) orientacioParet = -2;
             else orientacioParet = 2;
-            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
                 Instantiate(roca, new Vector3(objectHit.x + orientacioParet, objectHit.y, objectHit.z), Quaternion.Euler(new Vector3(0, 0, hit.gameObject.transform.rotation.eulerAngles.z)));
             }
             else if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -90,16 +94,16 @@ public class CameraController : MonoBehaviour {
 
     void funcionsAigua(Transform hit, Vector3 objectHit)
     {
-        if (hit.tag == "TerraAigua" && Input.GetKeyDown(KeyCode.Mouse0))
+        if (hit.tag == "TerraAigua" && Input.GetKeyDown(KeyCode.Mouse2))
         {
-            if (GameObject.FindGameObjectWithTag("PistolaAigua") == null)
-            {
-                GameObject pistolaAiguaNova = Instantiate(pistolaAigua, new Vector3(objectHit.x, objectHit.y, hit.transform.position.z), Quaternion.identity);
-                pistolaAiguaNova.GetComponent<PistolaAiguaMove>().Attack(GameObject.FindGameObjectWithTag("Enemy"));
-                GameObject fontAiguaNova = Instantiate(fontAigua, new Vector3(objectHit.x, objectHit.y, hit.transform.position.z), Quaternion.identity);
-                pistolaAiguaNova.GetComponent<PistolaAiguaMove>().SetFontAigua(fontAiguaNova);
-            }
-        } else if ((hit.tag == "Pedra" || hit.tag == "GranPedra") && Input.GetKeyDown(KeyCode.Mouse0))
+           Instantiate(aquaBall, new Vector3(objectHit.x, objectHit.y - 2, hit.transform.position.z), Quaternion.identity);
+
+
+            //aquaBallNova.GetComponent<PistolaAiguaMove>().Attack(GameObject.FindGameObjectWithTag("Enemy"));
+        //     GameObject fontAiguaNova = Instantiate(fontAigua, new Vector3(objectHit.x, objectHit.y, hit.transform.position.z), Quaternion.identity);
+        //      pistolaAiguaNova.GetComponent<PistolaAiguaMove>().SetFontAigua(fontAiguaNova);
+        }
+        else if ((hit.tag == "Pedra" || hit.tag == "GranPedra") && Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (hit.gameObject.GetComponent<PedraMove>().getAttacking())
             {
@@ -111,12 +115,16 @@ public class CameraController : MonoBehaviour {
                     GameObject fontAiguaNova = Instantiate(fontAigua, new Vector3(objectHit.x, terresAigua[0].transform.position.y, terresAigua[0].transform.position.z), Quaternion.identity);
                     pistolaAiguaNova.GetComponent<PistolaAiguaMove>().SetFontAigua(fontAiguaNova);
                 }
-                else
-                {
-                    Instantiate(thunder, new Vector3(objectHit.x, 0, objectHit.z), Quaternion.Euler(new Vector3(-90, 0, 0)));
-                }
+                //     else
+                //     {
+                Instantiate(thunder, new Vector3(objectHit.x, 0, objectHit.z), Quaternion.Euler(new Vector3(-90, 0, 0)));
+                //     }
             }
         }
     }
 
+    void funcionsElectricitat(Transform hit, Vector3 objectHit)
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1)) Instantiate(tormentaElectrica, new Vector3(objectHit.x, 0, objectHit.z), Quaternion.identity);
+    }
 }

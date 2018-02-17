@@ -9,6 +9,7 @@ public class PistolaAiguaMove : GeneralFunctions {
     private float indexRotacio;
     private bool teObjectiu;
     private GameObject fontAigua;
+    private int contador;
 
   //  private bool attacking;
     private GameObject destination;
@@ -17,6 +18,7 @@ public class PistolaAiguaMove : GeneralFunctions {
 	void Start () {
         indexRotacio = 0;
         teObjectiu = false;
+        contador = 0;
     }
 	
 	// Update is called once per frame
@@ -37,6 +39,8 @@ public class PistolaAiguaMove : GeneralFunctions {
             transform.Rotate(90, 0, 0);
         }
         else if (teObjectiu) Destruir();
+        else if (contador > 10) Destruir();
+        else contador++;
 
         indexRotacio += 8f;
         transform.Rotate(0, indexRotacio, 0);
@@ -55,12 +59,12 @@ public class PistolaAiguaMove : GeneralFunctions {
     {
    //     gameObject.GetComponent<Renderer>().enabled = false;
      //   gameObject.GetComponent<CapsuleCollider>().enabled = false;
-        EllipsoidParticleEmitter[] steams = fontAigua.GetComponentsInChildren<EllipsoidParticleEmitter>();
+    /*    EllipsoidParticleEmitter[] steams = fontAigua.GetComponentsInChildren<EllipsoidParticleEmitter>();
         foreach (EllipsoidParticleEmitter steam in steams)
         {
             steam.emit = false;
-        }
-        Destroy(fontAigua, 2f);
+        }*/
+    //    Destroy(fontAigua, 2f);
         Destroy(gameObject);
     }
 
@@ -72,7 +76,7 @@ public class PistolaAiguaMove : GeneralFunctions {
     private void OnTriggerEnter(Collider collider)
     {
         string tag = collider.gameObject.tag;
-        if (!esTerra(tag) && tag != "PistolaAigua" && tag != "Player")
+        if (!esTerra(tag) && tag != "PistolaAigua" && tag != "Player" && tag != "AquaBall")
         {
             if (tag == "Pedra" || tag == "GranPedra") collider.gameObject.GetComponent<PedraMove>().Destrossar(1);
             else if (esRoca(tag)) collider.gameObject.GetComponent<RocaMove>().Destrossar(1);

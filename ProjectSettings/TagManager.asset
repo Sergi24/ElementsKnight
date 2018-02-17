@@ -15,6 +15,7 @@ TagManager:
   - GranRoca
   - GranPedra
   - Thunder
+  - AquaBall
   layers:
   - Default
   - TransparentFX
