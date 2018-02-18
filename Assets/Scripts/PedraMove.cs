@@ -103,6 +103,7 @@ public class PedraMove : AVida, IResistencia {
             else if (tag != "Player" && tag != "Enemy" && !esTerra(tag) && !esPedra(tag)) Destrossar(1);
             else if (tag == "Player" && destination.tag == "Player") Destrossar(1);
             else if (tag == "Enemy" && destination.tag == "Enemy") Destrossar(1);
+            Destrossar(1);
         }
     }
 
@@ -118,5 +119,10 @@ public class PedraMove : AVida, IResistencia {
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Thunder") Destrossar(1);
+        else if (collider.gameObject.tag == "AquaBall")
+        {
+            collider.gameObject.GetComponent<IResistencia>().Destrossar(vida);
+            Destrossar(vida);
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : GeneralFunctions {
 
     private Rigidbody rb;
     private bool inTheGround;
@@ -20,10 +20,12 @@ public class PlayerController : MonoBehaviour {
     {
         if (flying)
         {
-            if (!Input.GetKey(KeyCode.Space) && transform.position.y < 1f)
+            if (!Input.GetKey(KeyCode.Space))
             {
-                rb.AddForce(Vector3.up * 40f, ForceMode.Impulse);
-            } 
+                if (transform.position.y < 6f) rb.AddForce(Vector3.up * 500f, ForceMode.Force);
+                else rb.velocity = Vector3.zero;
+            //    else if (transform.position.y < 5f) rb.AddForce(Vector3.up * 10f, ForceMode.Impulse);
+            }
         }
     }
 
@@ -53,12 +55,12 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Terra" || collision.gameObject.tag == "TerraRoca" || collision.gameObject.tag == "TerraAigua") inTheGround = true;
-        if (collision.gameObject.tag == "Roca" || collision.gameObject.tag == "GranRoca") inTheGround = true; 
+        if (esTerra(collision.gameObject.tag) || esRoca(collision.gameObject.tag)) inTheGround = true;
     }
 
-    public void FlyTime(int flyingTime, GameObject aquaBall)
+    public void FlyTime(int flyingTime)
     {
+        inTheGround = false;
         flying = true;
         Invoke("flyingTimeStop", flyingTime);
     }

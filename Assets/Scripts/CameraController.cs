@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : GeneralFunctions
 {
     private new Camera camera;
 
     public GameObject roca, granRoca, pistolaAigua, fontAigua, thunder, tormentaElectrica, aquaBall;
+    public Texture terraRocaTexture;
 
     // Use this for initialization
     void Start()
@@ -89,6 +90,10 @@ public class CameraController : MonoBehaviour
                     pedra.GetComponent<PedraMove>().Attack(hit.gameObject);
                 }
             }
+        } 
+        else if (hit.tag == "Terra" && Input.GetKeyDown(KeyCode.Mouse2))
+        {
+
         }
     }
 
@@ -107,17 +112,28 @@ public class CameraController : MonoBehaviour
         {
             hit.gameObject.GetComponent<AquaBallMove>().FlyBegin(GameObject.Find("Player"));
         }
-        else if ((hit.tag == "Pedra" || hit.tag == "GranPedra") && Input.GetKeyDown(KeyCode.Mouse0))
+        else if ((esPedra(hit.tag)) && Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (hit.gameObject.GetComponent<PedraMove>().getAttacking())
             {
-                if (GameObject.FindGameObjectWithTag("PistolaAigua") == null)
+                GameObject[] aquaBalls = GameObject.FindGameObjectsWithTag("AquaBall");
+                GameObject aquaBallEscollida = null;
+                float distanciaMinima = 10000f;
+                foreach (GameObject aquaBall in aquaBalls)
                 {
-                    GameObject[] terresAigua = GameObject.FindGameObjectsWithTag("TerraAigua");
-                    GameObject pistolaAiguaNova = Instantiate(pistolaAigua, new Vector3(objectHit.x, terresAigua[0].transform.position.y, terresAigua[0].transform.position.z), Quaternion.identity);
-                    pistolaAiguaNova.GetComponent<PistolaAiguaMove>().Attack(hit.transform.gameObject);
-                    GameObject fontAiguaNova = Instantiate(fontAigua, new Vector3(objectHit.x, terresAigua[0].transform.position.y, terresAigua[0].transform.position.z), Quaternion.identity);
-                    pistolaAiguaNova.GetComponent<PistolaAiguaMove>().SetFontAigua(fontAiguaNova);
+                    float distancia = (aquaBall.transform.position - hit.transform.position).magnitude;
+                    if (distancia < distanciaMinima && !aquaBall.GetComponent<AquaBallMove>().GetPistolaAiguaCreada() && !aquaBall.GetComponent<AquaBallMove>().GetFlying())
+                    {
+                        distanciaMinima = distancia;
+                        aquaBallEscollida = aquaBall;
+                    }
+                }
+                if (aquaBallEscollida != null)
+                {
+                    aquaBallEscollida.GetComponent<AquaBallMove>().Attack(hit.transform.gameObject);
+
+                 //   GameObject fontAiguaNova = Instantiate(fontAigua, new Vector3(objectHit.x, aquaBalls[0].transform.position.y, aquaBalls[0].transform.position.z), Quaternion.identity);
+                   // pistolaAiguaNova.GetComponent<PistolaAiguaMove>().SetFontAigua(fontAiguaNova);
                 }
             }
         }

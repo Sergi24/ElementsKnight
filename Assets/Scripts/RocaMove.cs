@@ -62,9 +62,9 @@ public class RocaMove : AVida, IResistencia
         string tag = collision.gameObject.tag;
         if (!destrossat)
         {
-            if (tag != "Player" && tag != "TerraRoca" && tag != "ParetRoca")
+            if (tag != "Player" && !esRoca(tag))
             {
-                if (tag == "Pedra" || tag == "GranPedra")
+                if (esPedra(tag))
                 {
                     if (collision.gameObject.GetComponent<PedraMove>().getAttacking())
                     {
@@ -72,14 +72,8 @@ public class RocaMove : AVida, IResistencia
                         else Destrossar(3);
                     }
                 }
-                else if (tag == "Enemy")
-                {
-                    Destrossar(3);
-                }
-                else
-                {
-                    Destrossar(1);
-                }
+                else if (tag == "Enemy") Destrossar(3);
+                else Destrossar(1);
             }
         }
     }

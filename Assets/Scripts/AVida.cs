@@ -5,5 +5,9 @@ using UnityEngine;
 public class AVida : GeneralFunctions {
 
     public int vida;
-
+    
+    public int GetVida()
+    {
+        return vida;
+    }
 }

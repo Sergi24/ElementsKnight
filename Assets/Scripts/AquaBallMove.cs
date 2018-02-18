@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AquaBallMove : MonoBehaviour {
+public class AquaBallMove : AVida, IResistencia {
 
     private bool pistolaAiguaCreada;
     private GameObject pistolaAiguaNova;
@@ -16,7 +16,6 @@ public class AquaBallMove : MonoBehaviour {
     // Use this for initialization
     void Start () {
         ps = gameObject.GetComponent<ParticleSystem>();
-        Invoke("Destrossar", 10f);
         pistolaAiguaCreada = false;
         destroy = false;
         flying = false;
@@ -39,33 +38,40 @@ public class AquaBallMove : MonoBehaviour {
             if (destroy) transform.position -= Vector3.up * 0.05f;
             pistolaAiguaCreada = false;
         }
-        if (flying && !destroy && !attached)
+        if (flying && vida == 3 && !attached)
         {
             Vector3 puntoDeChoque;
-            puntoDeChoque = new Vector3(destination.transform.position.x, destination.transform.position.y + 1, destination.transform.position.z);
+            puntoDeChoque = new Vector3(destination.transform.position.x, destination.transform.position.y + 1.2f, destination.transform.position.z);
             transform.rotation = Quaternion.Slerp(transform.rotation,
             Quaternion.LookRotation(puntoDeChoque - transform.position), 100 * Time.deltaTime);
 
             //Movimiento en dirección del target 
             transform.position += transform.forward * moveSpeed * Time.deltaTime;
-            if (((destination.transform.position + Vector3.up) - transform.position).magnitude < 0.05f)
+            if (((destination.transform.position + new Vector3(0, 1.2f, 0)) - transform.position).magnitude < 0.05f)
             {
                 transform.SetParent(destination.transform);
-                ParticleSystem.MainModule main = ps.main;
-             //   main.simulationSpace = ParticleSystemSimulationSpace.World;
-                main.startLifetime = 1f;
-                ParticleSystem.EmissionModule emission = ps.emission;
-                //   emission.rateOverTime = 30f;
+
                 attached = true;
-                destination.GetComponent<PlayerController>().FlyTime(flyingTime, gameObject);
+
+                destination.GetComponent<PlayerController>().FlyTime(flyingTime);
                 Destroy(gameObject, flyingTime);
             }
         }
+        if (pistolaAiguaNova != null)
+        {
+            transform.localScale -= new Vector3(0.001f, 0.001f, 0.001f);
+            if (transform.localScale.x < 0.3f)
+            {
+                Destroy(pistolaAiguaNova);
+                destroy = true;
+            }
+        } else if (transform.localScale.x < 0.55f) destroy = true;
+        if (destroy) gameObject.GetComponent<SphereCollider>().enabled = false;
 	}
 
-    private void Destrossar()
+    public void Destrossar(int dany)
     {
-        destroy = true;
+        transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f) * dany;
     }
 
     public bool GetPistolaAiguaCreada()
@@ -73,32 +79,42 @@ public class AquaBallMove : MonoBehaviour {
         return pistolaAiguaCreada;
     }
 
+    public bool GetFlying()
+    {
+        return flying;
+    }
+
     public void FlyBegin(GameObject destination)
     {
-        if (!pistolaAiguaCreada)
+        if (!pistolaAiguaCreada && transform.localScale.x > 0.95f)
         {
             flying = true;
+            gameObject.GetComponent<SphereCollider>().enabled = false;
+            ParticleSystem.MainModule main = ps.main;
+            main.startLifetime = 1f;
             this.destination = destination;
         }
     }
 
-    private void OnMouseDown()
+    public void Attack(GameObject destination)
     {
         if (!pistolaAiguaCreada && !destroy)
         {
             pistolaAiguaNova = Instantiate(pistolaAigua, transform.position, Quaternion.identity);
-            pistolaAiguaNova.GetComponent<PistolaAiguaMove>().Attack(GameObject.FindGameObjectWithTag("Enemy"));
+            pistolaAiguaNova.GetComponent<PistolaAiguaMove>().Attack(destination);
             pistolaAiguaNova.transform.SetParent(transform);
 
             pistolaAiguaCreada = true;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnMouseDown()
     {
-        if (flying && collision.gameObject.Equals(destination))
-        {
+        Attack(GameObject.FindGameObjectWithTag("Enemy"));
+    }
 
-        }
+    private void OnTriggerEnter(Collider collider)
+    {
+   //     if (!esTerra(collider.gameObject.tag) && collider.gameObject.tag != "Player" && collider.gameObject.tag != "PistolaAigua") Destrossar(1);
     }
 }

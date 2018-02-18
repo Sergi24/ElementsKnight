@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820859159708600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.454906, y: 1.0078379e-16, z: 45.4611}
+  m_LocalPosition: {x: 7.7127466, y: 3.61, z: 36.988007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcabb06f14275c24fb98bc20cbc20489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vida: 3
   pistolaAigua: {fileID: 1037915686733234, guid: 755c19e0d0b7a704082c9c8a6dbceab7,
     type: 2}
   moveSpeed: 6
@@ -165,7 +166,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1114740226
+  randomSeed: 1945546646
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -304,9 +305,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 3
+      minMaxState: 0
       scalar: 3
-      minScalar: 3
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -333,7 +334,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 3
+      minMaxState: 0
       scalar: 1
       minScalar: 0
       maxCurve:
@@ -374,7 +375,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 3
+      minMaxState: 0
       scalar: 1
       minScalar: 0
       maxCurve:

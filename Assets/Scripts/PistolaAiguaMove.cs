@@ -20,6 +20,7 @@ public class PistolaAiguaMove : AVida, IResistencia
         indexRotacio = 0;
         teObjectiu = false;
         contador = 0;
+        Destroy(gameObject, 4f);
     }
 	
 	// Update is called once per frame
