@@ -103,7 +103,7 @@ public class PedraMove : AVida, IResistencia {
             else if (tag != "Player" && tag != "Enemy" && !esTerra(tag) && !esPedra(tag)) Destrossar(1);
             else if (tag == "Player" && destination.tag == "Player") Destrossar(1);
             else if (tag == "Enemy" && destination.tag == "Enemy") Destrossar(1);
-            Destrossar(1);
+      //      Destrossar(1);
         }
     }
 

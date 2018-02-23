@@ -39,11 +39,11 @@ public class EscutController : AVida, IResistencia
         {
             //Destruccio ajena
             if (collider.gameObject.tag == "GranPedra") collider.GetComponent<IResistencia>().Destrossar(3);
-            else collider.GetComponent<IResistencia>().Destrossar(1);
+            else if (collider.gameObject.tag == "Pedra") collider.GetComponent<IResistencia>().Destrossar(1);
 
             //Destruccio propia
             if (collider.gameObject.tag == "GranPedra") Destrossar(3);
-            else Destrossar(1);
+            else if (collider.gameObject.tag == "Pedra") Destrossar(1);
         }
     }
 }

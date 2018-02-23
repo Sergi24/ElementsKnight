@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PistolaAiguaMove : AVida, IResistencia
 {
-
     public int rotationSpeed;
 
     private float indexRotacio;
@@ -20,7 +19,7 @@ public class PistolaAiguaMove : AVida, IResistencia
         indexRotacio = 0;
         teObjectiu = false;
         contador = 0;
-        Destroy(gameObject, 4f);
+        Destroy(gameObject, 3f);
     }
 	
 	// Update is called once per frame
@@ -36,7 +35,7 @@ public class PistolaAiguaMove : AVida, IResistencia
             transform.rotation = Quaternion.Slerp(transform.rotation,
             Quaternion.LookRotation(puntoDeChoque - transform.position), rotationSpeed * Time.deltaTime);
 
-            transform.localScale += new Vector3(0.005f, 0.01f, 0.005f);
+            transform.localScale += new Vector3(0.005f, 0.015f, 0.005f);
 
             transform.Rotate(90, 0, 0);
         }

@@ -6,7 +6,7 @@ public class CameraController : GeneralFunctions
 {
     private new Camera camera;
 
-    public GameObject roca, granRoca, pistolaAigua, fontAigua, thunder, tormentaElectrica, aquaBall;
+    public GameObject roca, granRoca, pistolaAigua, fontAigua, thunder, tormentaElectrica, aquaBall, erupcioRoca;
     public Texture terraRocaTexture;
 
     // Use this for initialization
@@ -38,7 +38,13 @@ public class CameraController : GeneralFunctions
         // Do something with the object that was hit by the raycast.
         if (hit.tag == "TerraRoca")
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.E))
+            {
+                GameObject erupcioRocaNova = Instantiate(erupcioRoca, new Vector3(hit.transform.position.x, hit.transform.position.y + 1.78f, hit.transform.position.z), Quaternion.identity);
+                ParticleSystem.ShapeModule shape = erupcioRocaNova.GetComponent<ParticleSystem>().shape;
+                shape.scale = new Vector3(hit.gameObject.transform.localScale.x*10, 0.01f, hit.gameObject.transform.localScale.z * 10);
+            }
+            else if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Instantiate(roca, new Vector3(objectHit.x, objectHit.y - 2, objectHit.z), Quaternion.identity);
             }
@@ -93,7 +99,7 @@ public class CameraController : GeneralFunctions
         } 
         else if (hit.tag == "Terra" && Input.GetKeyDown(KeyCode.Mouse2))
         {
-
+            hit.gameObject.GetComponent<Renderer>().material.SetTexture("TerraRoca", terraRocaTexture);
         }
     }
 

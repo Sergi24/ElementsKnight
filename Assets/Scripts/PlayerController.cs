@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : GeneralFunctions {
+public class PlayerController : GeneralFunctions, IResistencia {
 
     private Rigidbody rb;
     private bool inTheGround;
     private GameObject AquaBallMove;
     private bool flying;
 
-	// Use this for initialization
-	void Start () {
+    public float playerVelocity;
+
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody>();
         inTheGround = true;
     }
@@ -33,8 +35,8 @@ public class PlayerController : GeneralFunctions {
     void Update() {
         float x = Input.GetAxis("Horizontal") * Time.deltaTime * 190.0f;
         float z;
-        if (flying) z = Input.GetAxis("Vertical") * Time.deltaTime * 8.0f;
-        else z = Input.GetAxis("Vertical") * Time.deltaTime * 5.0f;
+        if (flying) z = Input.GetAxis("Vertical") * Time.deltaTime * (playerVelocity+3);
+        else z = Input.GetAxis("Vertical") * Time.deltaTime * playerVelocity;
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
@@ -58,6 +60,11 @@ public class PlayerController : GeneralFunctions {
         if (esTerra(collision.gameObject.tag) || esRoca(collision.gameObject.tag)) inTheGround = true;
     }
 
+    public void Destrossar(int dany)
+    {
+       
+    }
+
     public void FlyTime(int flyingTime)
     {
         inTheGround = false;
@@ -68,5 +75,15 @@ public class PlayerController : GeneralFunctions {
     private void flyingTimeStop()
     {
         flying = false;
+    }
+
+    public void Arralentir()
+    {
+        if (!flying) playerVelocity -= 2f;
+    }
+
+    public void Desarralentir()
+    {
+        if (!flying) playerVelocity += 2f;
     }
 }
