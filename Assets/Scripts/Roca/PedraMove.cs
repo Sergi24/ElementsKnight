@@ -60,17 +60,17 @@ public class PedraMove : AVida, IResistencia {
         gameObject.GetComponentInChildren<Renderer>().material.color = selectedColor;
     }
 
-    public void Attack(GameObject gameObject)
+    public void Attack(GameObject hit)
     {
         if (selected)
         {
             asource.Play();
 
-            this.gameObject.GetComponentInChildren<Renderer>().material.color = initialColor;
-            destination = gameObject;
-            if (gameObject.tag == "Enemy")
+            gameObject.GetComponentInChildren<Renderer>().material.color = initialColor;
+            destination = hit;
+            if (hit.tag == "Enemy")
             {
-                gameObject.GetComponent<EnemyController>().Defend(gameObject);
+                hit.GetComponent<EnemyController>().Defend(gameObject);
             }
             rb.useGravity = false;
             attacking = true;
@@ -103,7 +103,6 @@ public class PedraMove : AVida, IResistencia {
             else if (tag != "Player" && tag != "Enemy" && !esTerra(tag) && !esPedra(tag)) Destrossar(1);
             else if (tag == "Player" && destination.tag == "Player") Destrossar(1);
             else if (tag == "Enemy" && destination.tag == "Enemy") Destrossar(1);
-      //      Destrossar(1);
         }
     }
 

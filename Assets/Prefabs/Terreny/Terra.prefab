@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33000622259837990}
   - component: {fileID: 64309185968718206}
   - component: {fileID: 23290707297356694}
+  - component: {fileID: 114291899321016908}
   m_Layer: 0
   m_Name: Terra
   m_TagString: Terra
@@ -36,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225688659237780}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.71, y: -0.001, z: -0.0099983215}
-  m_LocalScale: {x: 3, y: 1, z: 0.5}
+  m_LocalPosition: {x: -8, y: 0, z: 12}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -97,3 +98,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114291899321016908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1225688659237780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7def6118e6ea64fb05d5f8d3d18566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lava: {fileID: 1894078009702872, guid: 4aed1940b492ca341922e9d15a612481, type: 2}
+  tempsPosesio: 5
+  terraRocaMaterial: {fileID: 2100000, guid: dd38ca59cd8398c4da4c0f4bc8a482ae, type: 2}
+  negre: {fileID: 2100000, guid: e2c792850093c7a48a1e953d9bbcf961, type: 2}

@@ -16,6 +16,10 @@ TagManager:
   - GranPedra
   - Thunder
   - AquaBall
+  - FirePlayer
+  - TerraFoc
+  - GroundPlayer
+  - MagmaBurst
   layers:
   - Default
   - TransparentFX

@@ -8,13 +8,16 @@ public class PlayerController : GeneralFunctions, IResistencia {
     private bool inTheGround;
     private GameObject AquaBallMove;
     private bool flying;
+    private bool creatingFireballs;
 
     public float playerVelocity;
+    public int handsFireTime;
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
         inTheGround = true;
+        creatingFireballs = false;
     }
 
     // Update is called once per frame
@@ -53,6 +56,25 @@ public class PlayerController : GeneralFunctions, IResistencia {
             if (Input.GetKey(KeyCode.Space)) rb.useGravity = true;
             else rb.useGravity = false; 
         }
+    }
+
+    public void FireballRepetitivaCreada()
+    {
+        Invoke("HandsFireDisabled", handsFireTime);
+        creatingFireballs = true;
+    }
+
+    public bool IsCreatingFireballs()
+    {
+        return creatingFireballs;
+    }
+
+    private void HandsFireDisabled()
+    {
+        gameObject.transform.Find("HandsFire").gameObject.SetActive(false);
+        ParticleSystem.EmissionModule emission = gameObject.transform.Find("Fireball").gameObject.GetComponent<ParticleSystem>().emission;
+        emission.rateOverTime = 0;
+        creatingFireballs = false;
     }
 
     private void OnCollisionEnter(Collision collision)

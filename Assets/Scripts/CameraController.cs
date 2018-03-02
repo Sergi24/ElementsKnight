@@ -6,8 +6,8 @@ public class CameraController : GeneralFunctions
 {
     private new Camera camera;
 
-    public GameObject roca, granRoca, pistolaAigua, fontAigua, thunder, tormentaElectrica, aquaBall, erupcioRoca;
-    public Texture terraRocaTexture;
+    public GameObject roca, granRoca, pistolaAigua, fontAigua, thunder, tormentaElectrica, aquaBall, erupcioRoca, magmaBurst, fireSplinters, magmaBurstSplinters;
+    public Material terraRocaMaterial;
 
     // Use this for initialization
     void Start()
@@ -30,6 +30,8 @@ public class CameraController : GeneralFunctions
             funcionsAigua(hit.transform, hit.point);
 
             funcionsElectricitat(hit.transform, hit.point);
+
+            funcionsFoc(hit.transform, hit.point);
         }
     }
 
@@ -97,10 +99,11 @@ public class CameraController : GeneralFunctions
                 }
             }
         } 
-        else if (hit.tag == "Terra" && Input.GetKeyDown(KeyCode.Mouse2))
+     /*   else if (hit.tag == "Terra" && Input.GetKeyDown(KeyCode.Mouse2))
         {
-            hit.gameObject.GetComponent<Renderer>().material.SetTexture("TerraRoca", terraRocaTexture);
-        }
+            Renderer actualRender = hit.gameObject.GetComponent<Renderer>();
+            actualRender.material = terraRocaMaterial;
+        }*/
     }
 
     void funcionsAigua(Transform hit, Vector3 objectHit)
@@ -153,5 +156,18 @@ public class CameraController : GeneralFunctions
         //     {
        // Instantiate(thunder, new Vector3(objectHit.x, 0, objectHit.z), Quaternion.Euler(new Vector3(-90, 0, 0)));
         //     }
+    }
+
+    void funcionsFoc(Transform hit, Vector3 objectHit)
+    {
+        if (hit.tag == "TerraFoc" && Input.GetKeyDown(KeyCode.Mouse2))
+        {
+            Instantiate(magmaBurst, objectHit, magmaBurst.transform.rotation);
+        } else if (hit.tag == "MagmaBurst" && Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            Instantiate(fireSplinters, hit.gameObject.transform.position + hit.gameObject.transform.forward, fireSplinters.transform.rotation);
+            hit.gameObject.GetComponent<MagmaBurstController>().DisableMagmaBurstParticles();
+            Instantiate(magmaBurstSplinters, hit.gameObject.transform.position, magmaBurstSplinters.transform.rotation);
+        }
     }
 }

@@ -8,7 +8,7 @@ public class PistolaAiguaMove : AVida, IResistencia
 
     private float indexRotacio;
     private bool teObjectiu;
-    private GameObject fontAigua;
+ //   private GameObject fontAigua;
     private int contador;
 
   //  private bool attacking;
@@ -71,7 +71,7 @@ public class PistolaAiguaMove : AVida, IResistencia
 
     public void SetFontAigua(GameObject fontAigua)
     {
-        this.fontAigua = fontAigua;
+   //     this.fontAigua = fontAigua;
     }
 
     private void OnTriggerEnter(Collider collider)

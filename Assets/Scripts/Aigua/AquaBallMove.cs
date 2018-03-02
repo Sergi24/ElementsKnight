@@ -20,6 +20,7 @@ public class AquaBallMove : AVida, IResistencia {
         destroy = false;
         flying = false;
         functionDestroyCalled = false;
+        destination = GameObject.Find("Player");
     }
 	
 	// Update is called once per frame
@@ -27,6 +28,17 @@ public class AquaBallMove : AVida, IResistencia {
         if (transform.position.y < 2 && !destroy && !flying)
         {
             transform.position += transform.up * 0.05f;
+        }
+        else if (!flying && !destroy)
+        {
+            Vector3 puntoDeChoque;
+            puntoDeChoque = new Vector3(destination.transform.position.x, 2f, destination.transform.position.z);
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+            Quaternion.LookRotation(puntoDeChoque - transform.position), 100 * Time.deltaTime);
+
+            //Movimiento en dirección del target 
+            if ((puntoDeChoque - transform.position).magnitude > 4f)
+                transform.position += transform.forward * moveSpeed * 0.3f * Time.deltaTime;
         }
         if (pistolaAiguaNova == null && !attached && !flying)
         {

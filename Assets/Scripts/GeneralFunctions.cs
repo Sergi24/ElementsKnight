@@ -6,7 +6,7 @@ public class GeneralFunctions : MonoBehaviour {
 
 	protected bool esTerra(string tag)
     {
-        if (tag == "TerraRoca" || tag == "ParetRoca" || tag == "Terra" || tag == "TerraAigua") return true;
+        if (tag == "TerraRoca" || tag == "ParetRoca" || tag == "Terra" || tag == "TerraAigua" || tag == "TerraFoc") return true;
         else return false;
     }
 

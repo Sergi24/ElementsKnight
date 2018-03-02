@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour {
                 if (!pedra.GetComponent<PedraMove>().getSelected())
                 {
                     pedra.GetComponent<PedraMove>().Select();
-                    pedra.GetComponent<PedraMove>().Attack(GameObject.FindGameObjectWithTag("Player"));
+                    pedra.GetComponent<PedraMove>().Attack(GameObject.Find("Player"));
                 }
             }
         }
